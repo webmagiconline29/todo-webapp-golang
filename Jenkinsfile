@@ -3,8 +3,9 @@ pipeline {
 
    tools {
        go 'go-1.21.3'
+       sonar-scanner 'sonar-scanner'
     }
-    
+
     environment {
         SONAR_TOKEN = credentials('SONAR_TOKEN') // Reference Jenkins credential ID
     }
