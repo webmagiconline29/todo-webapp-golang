@@ -1,10 +1,15 @@
 pipeline {
     agent any
 
-   tools {
-       go 'go-1.21.3'
-       sonar-scanner 'sonarqube-scanner' 
-        }
+//    tools {
+//        go 'go-1.21.3'
+//        sonar-scanner 'sonarqube-scanner' 
+//         }
+
+    tools {
+        go 'go' // Refers to the name defined in Jenkins tool configuration
+        scanner 'sonarqube-scanner' // Refers to the name defined in Jenkins tool configuration
+    }
 
     environment {
         SONAR_TOKEN = credentials('SONAR_TOKEN') // Reference Jenkins credential ID
