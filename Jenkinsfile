@@ -2,7 +2,8 @@ pipeline {
     agent any
 
    tools {
-       go 'go-1.21.3' 
+       go 'go-1.21.3'
+       sonar-scanner 'sonarqube-scanner-5.0.1.3006' 
         }
 
     environment {
