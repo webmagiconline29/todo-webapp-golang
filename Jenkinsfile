@@ -8,7 +8,7 @@ pipeline {
 
     tools {
         go 'go-1.21.3' // Refers to the name defined in Jenkins tool configuration
-        sonarqube scanner 'sonarqube-scanner' // Refers to the name defined in Jenkins tool configuration
+        sonarqube scanner 'sonarqube-scanner-5.0.1.3006' // Refers to the name defined in Jenkins tool configuration
     }
 
     environment {
