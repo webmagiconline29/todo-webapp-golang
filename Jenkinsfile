@@ -6,7 +6,7 @@ pipeline {
         }
 
     environment {
-        SONARQUBE_SERVER = credentials('SONARQUBE_SERVER') // Reference Jenkins credential ID
+        SONARQUBE_SERVER = credentials('SONAR_TOKEN') // Reference Jenkins credential ID
     }
 
     stages {
