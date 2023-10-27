@@ -24,8 +24,6 @@ pipeline {
                 script {
                     sh 'go test -coverprofile=coverage.out'
                     sh 'go tool cover -html=coverage.out -o coverage.html'
-                    sh 'go get github.com/axw/gocov/gocov'
-                    sh 'gocov convert coverage.out > coverage.json'
                 }
                 archiveArtifacts 'coverage.html'
             }
@@ -41,7 +39,7 @@ pipeline {
             steps {
                 script {
                     withSonarQubeEnv('SONAR_TOKEN') {
-                        sh '/usr/local/sonar/bin/sonar-scanner -Dsonar.organization=wm1 -Dsonar.projectKey=wm1_todo-webapp-golang -Dsonar.sources=. -Dsonar.go.coverage.reportPaths=coverage.json -Dsonar.host.url=https://sonarcloud.io'
+                        sh '/usr/local/sonar/bin/sonar-scanner -Dsonar.organization=wm1 -Dsonar.projectKey=wm1_todo-webapp-golang -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io'
                     }
                 }
             }
