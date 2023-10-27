@@ -9,7 +9,7 @@ pipeline {
         stage('Set up Tools') {
             tools {
                 go 'go-1.21.3'
-                scanner 'sonarqube-scanner-5.0.1.3006'
+                sonar-scanner 'sonarqube-scanner-5.0.1.3006'
             }
         }
 
