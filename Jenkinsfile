@@ -25,8 +25,6 @@ pipeline {
                     sh 'go test -coverprofile=coverage.out'
                     sh 'go tool cover -html=coverage.out -o coverage.html'
                 }
-            }
-            steps {
                 archiveArtifacts 'coverage.html'
             }
         }
