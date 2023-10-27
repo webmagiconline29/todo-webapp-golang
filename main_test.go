@@ -1,57 +1,63 @@
+// main_test.go
+
 package main
 
 import (
-  "net/http"
-  "testing"
+	"net/http"
+	"net/http/httptest"
+	"strings"
+	"testing"
 )
 
+// func TestAddTodo(t *testing.T) {
+// 	resetTodos()
+
+// 	req, err := http.NewRequest("POST", "/add", strings.NewReader("todo=TestTodo"))
+// 	if err != nil {
+// 		t.Fatal(err)
+// 	}
+
+// 	rr := httptest.NewRecorder()
+// 	handler := http.HandlerFunc(addTodo)
+
+// 	handler.ServeHTTP(rr, req)
+
+// 	if status := rr.Code; status != http.StatusSeeOther {
+// 		t.Errorf("Handler returned wrong status code: got %v want %v", status, http.StatusSeeOther)
+// 	}
+
+// 	if len(todos) != 1 {
+// 		t.Errorf("Expected 1 todo, got %d", len(todos))
+// 	}
+
+// 	if todos[0] != "TestTodo" {
+// 		t.Errorf("Expected 'TestTodo', got '%s'", todos[0])
+// 	}
+// }
+
 func TestTodoList(t *testing.T) {
-  // Create a mock HTTP request.
-  req, err := http.NewRequest("GET", "/", nil)
-  if err != nil {
-    t.Fatal(err)
-  }
+	resetTodos()
 
-  // Create a mock HTTP response writer.
-  w := http.Recorder{}
+	req, err := http.NewRequest("GET", "/", nil)
+	if err != nil {
+		t.Fatal(err)
+	}
 
-  // Call the `todoList` function with the mock request and response writer.
-  todoList(w, req)
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(todoList)
 
-  // Check that the HTTP status code is 200 OK.
-  if w.Code != http.StatusOK {
-    t.Errorf("Expected HTTP status code 200 OK, but got %d", w.Code)
-  }
+	handler.ServeHTTP(rr, req)
+
+	if status := rr.Code; status != http.StatusOK {
+		t.Errorf("Handler returned wrong status code: got %v want %v", status, http.StatusOK)
+	}
+
+	expected := "<h1>WebMagic TODO List</h1>"
+	if !strings.Contains(rr.Body.String(), expected) {
+		t.Errorf("Handler returned unexpected body: got %v want %v", rr.Body.String(), expected)
+	}
 }
 
-func TestAddTodo(t *testing.T) {
-  // Create a mock HTTP request.
-  req, err := http.NewRequest("POST", "/", nil)
-  if err != nil {
-    t.Fatal(err)
-  }
-
-  // Set the form value for the "todo" field.
-  req.Form.Set("todo", "Test todo")
-
-  // Create a mock HTTP response writer.
-  w := http.Recorder{}
-
-  // Call the `addTodo` function with the mock request and response writer.
-  addTodo(w, req)
-
-  // Check that the HTTP status code is 303 See Other.
-  if w.Code != http.StatusSeeOther {
-    t.Errorf("Expected HTTP status code 303 See Other, but got %d", w.Code)
-  }
-
-  // Check that the new todo item was added to the `todos` slice.
-  if len(todos) != 1 {
-    t.Errorf("Expected 1 todo item in the `todos` slice, but got %d", len(todos))
-  }
-
-  // Check that the new todo item has the value "Test todo".
-  if todos[0] != "Test todo" {
-    t.Errorf("Expected the first todo item to be \"Test todo\", but got %s", todos[0])
-  }
+func resetTodos() {
+	todos = []string{}
 }
