@@ -1,16 +1,18 @@
 pipeline {
     agent any
 
-   tools {
-       go 'go-1.21.3',
-       sonar-scanner 'sonarqube-scanner-5.0.1.3006' 
-        }
-
     environment {
         SONAR_TOKEN = credentials('SONAR_TOKEN') // Reference Jenkins credential ID
     }
 
     stages {
+        stage('Set up Tools') {
+            tools {
+                go 'go-1.21.3'
+                scanner 'sonarqube-scanner-5.0.1.3006'
+            }
+        }
+
         stage('Unit Test') {
             steps {
                 script {
