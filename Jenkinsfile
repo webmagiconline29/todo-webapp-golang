@@ -39,7 +39,7 @@ pipeline {
             steps {
                 script {
                     withSonarQubeEnv('SONARQUBE_SERVER') {
-                        sh 'sonar-scanner -Dsonar.organization=wm1 -Dsonar.projectKey=wm1_todo-webapp-golang Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io'
+                        sh 'sonar-scanner -Dsonar.organization=wm1 -Dsonar.projectKey=wm1_todo-webapp-golang -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io'
                     }
                 }
             }
