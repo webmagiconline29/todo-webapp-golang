@@ -1,20 +1,17 @@
-# Use the official Golang image as the base image
-FROM golang:latest
+# Use a minimal Alpine Linux image
+FROM alpine:latest
 
-# Set the working directory inside the container
-WORKDIR /go/src/app
+# Create a directory to hold your Go binary
+WORKDIR /app
 
-# Copy the source code into the container
-COPY . .
+# Copy your built Go binary into the container
+COPY ./todoapp /app/todoapp
 
-#Initialize go.mod file
-RUN go mod init todo-app
+# Make the binary executable (if needed)
+RUN chmod +x /app/todoapp
 
-# Build the Go application
-RUN go build -o todo-app .
-
-# Expose the port the application will run on
+# Expose the port your application will listen on
 EXPOSE 8080
 
-# Define the command to run the application
-CMD ["./todo-app"]
+# Define the command to run the application when the container starts
+CMD ["/app/todoapp"]

@@ -49,7 +49,7 @@ pipeline {
             steps {
                 script {
                     // Adjust these commands based on how you build and upload your Go application to Nexus
-                    sh 'go build -o your-app'
+                    sh 'go build -o todoapp'
                     // sh 'curl -u username:password -X PUT --upload-file your-app https://nexus.example.com/repository/your-repo/your-app/1.0.0/your-app-1.0.0'
                 }
             }
