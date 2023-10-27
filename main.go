@@ -40,13 +40,12 @@ func todoList(w http.ResponseWriter, r *http.Request) {
 }
 
 func addTodo(w http.ResponseWriter, r *http.Request) {
-	mu.Lock()
-	defer mu.Unlock()
-
 	r.ParseForm()
 	todo := r.FormValue("todo")
 
+	mu.Lock()
 	todos = append(todos, todo)
+	mu.Unlock()
 
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
