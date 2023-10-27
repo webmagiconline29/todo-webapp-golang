@@ -39,13 +39,13 @@ func todoList(w http.ResponseWriter, r *http.Request) {
 	tmpl.Execute(w, todos)
 }
 
-// func addTodo(w http.ResponseWriter, r *http.Request) {
-// 	r.ParseForm()
-// 	todo := r.FormValue("todo")
+func addTodo(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	todo := r.FormValue("todo")
 
-// 	mu.Lock()
-// 	todos = append(todos, todo)
-// 	mu.Unlock()
+	mu.Lock()
+	todos = append(todos, todo)
+	mu.Unlock()
 
-// 	http.Redirect(w, r, "/", http.StatusSeeOther)
-// }
+	http.Redirect(w, r, "/", http.StatusSeeOther)
+}
