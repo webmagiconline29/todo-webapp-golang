@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+   tools {
+       maven 'go-1.21.3' 
+        }
+
     stages {
         stage('Build and Test') {
             steps {
