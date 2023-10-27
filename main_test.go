@@ -8,6 +8,25 @@ import (
 	"sync"
 )
 
+func TestAddTodo(t *testing.T) {
+	var mu sync.Mutex // Create a Mutex
+
+	mu.Lock()
+	defer mu.Unlock()
+
+	resetTodos()
+
+	// ... Rest of your test code ...
+}
+
+func TestTodoList(t *testing.T) {
+	var mu sync.Mutex // Create a Mutex
+
+	mu.Lock()
+	defer mu.Unlock()
+
+	resetTodos()
+
 func TestTodoList(t *testing.T) {
 	// Reset todos before testing
 	todos = []string{"Task 1", "Task 2"}

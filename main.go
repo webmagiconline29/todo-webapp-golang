@@ -3,7 +3,7 @@ package main
 import (
 	"html/template"
 	"net/http"
-	"sync"
+	// "sync"
 )
 
 var (
