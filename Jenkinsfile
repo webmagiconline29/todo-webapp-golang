@@ -6,7 +6,7 @@ pipeline {
     }
 
    tools {
-       sonar-scanner 'sonarqube-scanner' 
+       sonar-scanner 'sonarqube-scanner'
     }
 
     environment {
