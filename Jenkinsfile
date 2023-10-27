@@ -9,29 +9,7 @@ pipeline {
         SONARQUBE_SERVER = credentials('SONARQUBE_SERVER') // Reference Jenkins credential ID
     }
 
-    parameters {
-        string(name: 'SONAR_PROJECT_KEY', defaultValue: 'default-key', description: 'SonarQube Project Key')
-        string(name: 'SONAR_PROJECT_NAME', defaultValue: 'default-name', description: 'SonarQube Project Name')
-    }
-
     stages {
-
-        stage('Generate SonarQube Properties') {
-            steps {
-                script {
-                    def sonarProperties = """
-                        sonar.projectKey=${params.SONAR_PROJECT_KEY}
-                        sonar.projectName=${params.SONAR_PROJECT_NAME}
-                        sonar.sources=./
-                        sonar.tests=./
-                        sonar.language=go
-                    """
-
-                    writeFile file: 'sonar-project.properties', text: sonarProperties
-                }
-            }
-        }
-
         stage('Unit Test') {
             steps {
                 script {
@@ -62,8 +40,8 @@ pipeline {
         stage('Run SonarQube Analysis') {
             steps {
                 script {
-                    withSonarQubeEnv('SonarQubeServer') {
-                        sh 'sonar-scanner'
+                    withSonarQubeEnv('SONARQUBE_SERVER') {
+                        sh 'sonar-scanner -Dsonar.organization=wm1 -Dsonar.projectKey=wm1_todo-webapp-golang Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io'
                     }
                 }
             }
