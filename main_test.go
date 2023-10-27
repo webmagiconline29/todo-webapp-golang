@@ -5,12 +5,44 @@ import (
 	"net/http/httptest"
 	"strings"
 	"testing"
+	"sync"
 )
+
+func TestTodoList(t *testing.T) {
+	// Reset todos before testing
+	todos = []string{"Task 1", "Task 2"}
+
+	req, err := http.NewRequest("GET", "/", nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(todoList)
+
+	handler.ServeHTTP(rr, req)
+
+	if status := rr.Code; status != http.StatusOK {
+		t.Errorf("Handler returned wrong status code: got %v want %v", status, http.StatusOK)
+	}
+
+	expected := "Task 1"
+	if !strings.Contains(rr.Body.String(), expected) {
+		t.Errorf("Handler returned unexpected body: got %v want %v", rr.Body.String(), expected)
+	}
+
+	expected = "Task 2"
+	if !strings.Contains(rr.Body.String(), expected) {
+		t.Errorf("Handler returned unexpected body: got %v want %v", rr.Body.String(), expected)
+	}
+}
 
 func TestAddTodo(t *testing.T) {
 	resetTodos()
 
-	req, err := http.NewRequest("POST", "/add", strings.NewReader("todo=TestTodo"))
+	formData := "todo=New Task"
+
+	req, err := http.NewRequest("POST", "/add", strings.NewReader(formData))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -28,34 +60,13 @@ func TestAddTodo(t *testing.T) {
 		t.Errorf("Expected 1 todo, got %d", len(todos))
 	}
 
-	if todos[0] != "TestTodo" {
-		t.Errorf("Expected 'TestTodo', got '%s'", todos[0])
-	}
-}
-
-func TestTodoList(t *testing.T) {
-	resetTodos()
-
-	req, err := http.NewRequest("GET", "/", nil)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	rr := httptest.NewRecorder()
-	handler := http.HandlerFunc(todoList)
-
-	handler.ServeHTTP(rr, req)
-
-	if status := rr.Code; status != http.StatusOK {
-		t.Errorf("Handler returned wrong status code: got %v want %v", status, http.StatusOK)
-	}
-
-	expected := "<h1>TODO List</h1>"
-	if !strings.Contains(rr.Body.String(), expected) {
-		t.Errorf("Handler returned unexpected body: got %v want %v", rr.Body.String(), expected)
+	if todos[0] != "New Task" {
+		t.Errorf("Expected 'New Task', got '%s'", todos[0])
 	}
 }
 
 func resetTodos() {
+	mu.Lock()
+	defer mu.Unlock()
 	todos = []string{}
 }
