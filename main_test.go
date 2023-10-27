@@ -27,6 +27,8 @@ func TestTodoList(t *testing.T) {
 
 	resetTodos()
 
+}
+
 func TestTodoList(t *testing.T) {
 	// Reset todos before testing
 	todos = []string{"Task 1", "Task 2"}
