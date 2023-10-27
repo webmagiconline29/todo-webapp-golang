@@ -3,6 +3,9 @@ pipeline {
 
    tools {
        go 'go-1.21.3'
+    }
+
+   tools {
        sonar-scanner 'sonarqube-scanner' 
     }
 
