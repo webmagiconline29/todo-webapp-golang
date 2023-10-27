@@ -9,7 +9,7 @@ pipeline {
         stage('Build and Test') {
             steps {
                 script {
-                    sh 'go mod download'
+                    sh 'go mod init todo-app'
                     sh 'go test -v'
                 }
             }
