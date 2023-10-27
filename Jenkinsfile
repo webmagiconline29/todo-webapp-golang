@@ -6,7 +6,7 @@ pipeline {
         }
 
     environment {
-        SONARQUBE_SERVER = credentials('SONARQUBE_SERVER') // Reference Jenkins credential ID
+        SONAR_TOKEN = credentials('SONAR_TOKEN') // Reference Jenkins credential ID
     }
 
     stages {
@@ -38,7 +38,7 @@ pipeline {
         stage('Run SonarQube Analysis') {
             steps {
                 script {
-                    withSonarQubeEnv('SONARQUBE_SERVER') {
+                    withSonarQubeEnv('SONAR_TOKEN') {
                         sh 'sonar-scanner -Dsonar.organization=wm1 -Dsonar.projectKey=wm1_todo-webapp-golang -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io'
                     }
                 }
