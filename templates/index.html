@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebMagic TODO List</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1>WebMagic TODO List</h1>
+    <ul>
+    {{range .}}
+        <li>{{.}}</li>
+    {{end}}
+    </ul>
+    <form action="/add" method="post">
+        <input type="text" name="todo" required>
+        <input type="submit" value="Add">
+    </form>
+</body>
+</html>
