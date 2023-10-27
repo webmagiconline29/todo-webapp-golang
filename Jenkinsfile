@@ -8,7 +8,7 @@ pipeline {
 
     tools {
         go 'go' // Refers to the name defined in Jenkins tool configuration
-        scanner 'sonarqube-scanner' // Refers to the name defined in Jenkins tool configuration
+        sonarqube scanner 'sonarqube-scanner' // Refers to the name defined in Jenkins tool configuration
     }
 
     environment {
