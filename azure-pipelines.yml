@@ -5,6 +5,10 @@ pool:
    vmImage: 'ubuntu-latest'
 
 steps: 
+- task: WhiteSource@21
+  inputs:
+    cwd: '$(System.DefaultWorkingDirectory)'
+    projectName: 'todo-webapp-golang'
 - task: GoTool@0
   inputs:
     version: '1.13.5'
