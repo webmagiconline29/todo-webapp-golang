@@ -5,13 +5,13 @@ FROM alpine:latest
 WORKDIR /app
 
 # Copy your built Go binary into the container
-COPY ./todoapp /app/todoapp
+COPY ./main /app/main
 
 # Make the binary executable (if needed)
-RUN chmod +x /app/todoapp
+RUN chmod +x /app/main
 
 # Expose the port your application will listen on
 EXPOSE 8080
 
 # Define the command to run the application when the container starts
-CMD ["/app/todoapp"]
+CMD ["/app/main"]
