@@ -5,10 +5,10 @@ pool:
    name: Default
 
 steps: 
-- task: WhiteSource@21
-  inputs:
-    cwd: '$(System.DefaultWorkingDirectory)'
-    projectName: 'todo-webapp-golang'
+# - task: WhiteSource@21
+#   inputs:
+#     cwd: '$(System.DefaultWorkingDirectory)'
+#     projectName: 'todo-webapp-golang'
 - task: GoTool@0
   inputs:
     version: '1.13.5'
@@ -21,27 +21,27 @@ steps:
   inputs:
     command: 'build'
     arguments: '-o main'
-- task: SonarCloudPrepare@1
-  inputs:
-    SonarCloud: 'SonarCloud'
-    organization: 'cloud-tank'
-    scannerMode: 'CLI'
-    configMode: 'manual'
-    cliProjectKey: 'cloud-tank_todo-webapp-golang'
-    cliProjectName: 'todo-webapp-golang'
-    cliSources: '.'
-- task: SonarCloudAnalyze@1
-  inputs:
-    jdkversion: 'JAVA_HOME'
+# - task: SonarCloudPrepare@1
+#   inputs:
+#     SonarCloud: 'SonarCloud'
+#     organization: 'cloud-tank'
+#     scannerMode: 'CLI'
+#     configMode: 'manual'
+#     cliProjectKey: 'cloud-tank_todo-webapp-golang'
+#     cliProjectName: 'todo-webapp-golang'
+#     cliSources: '.'
+# - task: SonarCloudAnalyze@1
+#   inputs:
+#     jdkversion: 'JAVA_HOME'
 - task: CopyFiles@2
   inputs:
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 - task: PublishBuildArtifacts@1
   inputs:
      artifactName: drop
-- task: Docker@2
-  inputs:
-    containerRegistry: 'DockerHub'
-    repository: 'webmagic29/gohelloworld'
-    command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile'
+# - task: Docker@2
+#   inputs:
+#     containerRegistry: 'DockerHub'
+#     repository: 'webmagic29/gohelloworld'
+#     command: 'buildAndPush'
+#     Dockerfile: '**/Dockerfile'
