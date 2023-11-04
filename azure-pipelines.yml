@@ -20,7 +20,7 @@ steps:
 - task: Go@0
   inputs:
     command: 'build'
-    workingDirectory: '$(System.DefaultWorkingDirectory)'
+    arguments: '-o main'
 - task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'SonarCloud'
@@ -39,3 +39,9 @@ steps:
 - task: PublishBuildArtifacts@1
   inputs:
      artifactName: drop
+- task: Docker@2
+  inputs:
+    containerRegistry: 'DockerHub'
+    repository: 'gohelloworld'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
