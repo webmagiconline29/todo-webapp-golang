@@ -42,6 +42,6 @@ steps:
 - task: Docker@2
   inputs:
     containerRegistry: 'DockerHub'
-    repository: 'gohelloworld'
+    repository: 'webmagic29/gohelloworld'
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
